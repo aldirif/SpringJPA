@@ -25,19 +25,10 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         List<Enrollment> enrollments = enrollmentRepository.findAll();
         for (Enrollment enrollment : enrollments){
             enrollmentDtoList.add(EnrollmentResDto.builder()
-                    .id(enrollment.getId()).grade(enrollment.getGrade())
-                    .studentResDto(
-                            StudentResDto.builder()
-                                    .id(enrollment.getStudent().getId())
-                                    .last_name(enrollment.getStudent().getLast_name())
-                                    .first_mid_name(enrollment.getStudent().getFirst_mid_name())
-                                    .enrollment_date(enrollment.getStudent().getEnrollment_date()).build())
-                    .courseResDto(
-                            CourseResDto.builder()
-                                    .id(enrollment.getCourse().getId())
-                                    .title(enrollment.getCourse().getTitle())
-                                    .credits(enrollment.getCourse().getCredits()).build())
-                    .build());
+                    .id(enrollment.getId())
+                    .grade(enrollment.getGrade())
+                    .course_id(enrollment.getCourse().getId())
+                    .student_id(enrollment.getStudent().getId()).build());
         }
        return enrollmentDtoList;
     }
@@ -48,6 +39,8 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         Enrollment enrollment = enrollmentRepository.findById(id).orElse(new Enrollment());
         enrollmentResDto.setId(enrollment.getId());
         enrollmentResDto.setGrade(enrollment.getGrade());
+        enrollmentResDto.setCourse_id(enrollment.getCourse().getId());
+        enrollmentResDto.setStudent_id(enrollment.getStudent().getId());
 
         return enrollmentResDto;
     }
@@ -63,7 +56,9 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         Enrollment result = enrollmentRepository.save(newEnrollment);
         return EnrollmentResDto.builder()
                 .id(result.getId())
-                .grade(result.getGrade()).build();
+                .grade(result.getGrade())
+                .course_id(result.getCourse().getId())
+                .student_id(result.getStudent().getId()).build();
     }
 
     @Override
@@ -75,8 +70,9 @@ public class EnrollmentServiceImpl implements EnrollmentService {
             enrollment.setGrade(enrollmentReqDto.getGrade());
             result = enrollmentRepository.save(enrollment);
         }
-        return  Enrollment.builder().id(result.getId()).course(result.getCourse())
-                .course(result.getCourse()).grade(result.getGrade()).build();
+        return  Enrollment.builder()
+                .id(result.getId())
+                .grade(result.getGrade()).build();
     }
 
     @Override

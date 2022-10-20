@@ -11,6 +11,7 @@ public interface StudentService {
     StudentResDto insertStudent(StudentReqDto studentReqDto);
     Student updateStudent(Long id, StudentReqDto studentReqDto);
     void deleteStudent(Long id);
+    void registerStudentToCourse(StudentWithCourseDto studentWithCourseDto);
     StudentWithCourseResDto getStudentWithCourseById(Long id);
     List<StudentWithCourseResDto> getAllStudentWithCourse();
 }

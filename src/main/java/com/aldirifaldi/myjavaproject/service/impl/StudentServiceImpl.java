@@ -1,8 +1,11 @@
 package com.aldirifaldi.myjavaproject.service.impl;
 
 import com.aldirifaldi.myjavaproject.dto.*;
+import com.aldirifaldi.myjavaproject.model.Course;
 import com.aldirifaldi.myjavaproject.model.Enrollment;
 import com.aldirifaldi.myjavaproject.model.Student;
+import com.aldirifaldi.myjavaproject.repository.CourseRepository;
+import com.aldirifaldi.myjavaproject.repository.EnrollmentRepository;
 import com.aldirifaldi.myjavaproject.repository.StudentRepository;
 import com.aldirifaldi.myjavaproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
+
+    @Autowired
+    private EnrollmentRepository enrollmentRepository;
 
     @Override
     public List<StudentResDto> getAllStudent() {
@@ -79,6 +88,15 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(Long id) {
         studentRepository.deleteById(id);
+    }
+
+    @Override
+    public void registerStudentToCourse(StudentWithCourseDto studentWithCourseDto) {
+        Student student = studentRepository.findById(studentWithCourseDto.getStudent_id()).get();
+        Course course = courseRepository.findById(studentWithCourseDto.getCourse_id()).get();
+
+        student.getEnrollments().add(new Enrollment());
+        enrollmentRepository.save(new Enrollment());
     }
 
     @Override

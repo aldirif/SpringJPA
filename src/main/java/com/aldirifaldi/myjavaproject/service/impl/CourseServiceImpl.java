@@ -33,6 +33,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<CourseResDto> findAllByTitle(String title) {
+        return courseRepository.findAllByTitleContaining(title);
+    }
+
+    @Override
     public CourseResDto getCourseById(Long id) {
         CourseResDto courseResDto = new CourseResDto();
         Course course = courseRepository.findById(id).orElse(new Course());

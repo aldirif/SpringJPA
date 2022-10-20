@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface CourseService {
     List<CourseResDto> getAllSCourse();
+    List<CourseResDto> findAllByTitle(String title);
     CourseResDto getCourseById(Long id);
     CourseResDto insertCourse(CourseReqDto courseReqDto);
     Course updateCourse(Long id, CourseReqDto courseReqDto);

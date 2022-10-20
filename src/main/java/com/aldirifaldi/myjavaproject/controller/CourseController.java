@@ -23,6 +23,11 @@ public class CourseController {
         return courseService.getAllSCourse();
     }
 
+    @GetMapping("/bytitle")
+    List<CourseResDto> getCourseByTitle(@RequestParam(name = "title")String title){
+        return courseService.findAllByTitle(title);
+    }
+
     @GetMapping("/{id}")
     public CourseResDto getById(@PathVariable("id") Long id) {
         return courseService.getCourseById(id);
