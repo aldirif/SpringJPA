@@ -12,4 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EnrollmentReqDto {
     private Grade grade;
+    private Long courseId;
+    private Long studentId;
+
 }

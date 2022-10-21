@@ -7,17 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentWithCourseResDto {
+public class NewStudentWithCourseResDto {
     private Long id;
     private String lastName;
     private String firstMidName;
     @JsonFormat(timezone = "GMT+07:00")
     private Date enrollmentDate;
-    List<CourseResDto> courseResDtoList;
+    private CourseResDto courseResDto;
 }

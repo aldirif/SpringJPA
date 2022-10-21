@@ -3,7 +3,6 @@ package com.aldirifaldi.myjavaproject.controller;
 import com.aldirifaldi.myjavaproject.dto.CourseReqDto;
 import com.aldirifaldi.myjavaproject.dto.CourseResDto;
 import com.aldirifaldi.myjavaproject.dto.CourseWithStudentResDto;
-import com.aldirifaldi.myjavaproject.model.Course;
 import com.aldirifaldi.myjavaproject.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +22,9 @@ public class CourseController {
         return courseService.getAllSCourse();
     }
 
-    @GetMapping("/bytitle")
-    List<CourseResDto> getCourseByTitle(@RequestParam(name = "title")String title){
-        return courseService.findAllByTitle(title);
+    @GetMapping("/ByTitle")
+    List<CourseResDto> getCourseByTitle(@RequestParam(name = "name")String name){
+        return courseService.findAllByTitle(name);
     }
 
     @GetMapping("/{id}")
@@ -40,7 +39,7 @@ public class CourseController {
 
     }
     @PutMapping("/{id}")
-    public Course put(@PathVariable("id") Long id, @RequestBody CourseReqDto courseReqDto) {
+    public CourseResDto put(@PathVariable("id") Long id, @RequestBody CourseReqDto courseReqDto) {
         return courseService.updateCourse(id, courseReqDto);
     }
 
@@ -50,7 +49,7 @@ public class CourseController {
         return "Delete course id: "+id.toString()+" berhasil";
     }
 
-    @GetMapping("/with/{id}")
+    @GetMapping("/With/student/{id}")
     public CourseWithStudentResDto getCourseWithStudentById(@PathVariable("id") Long id){
         return courseService.getCourseWithStudentById(id);
     }

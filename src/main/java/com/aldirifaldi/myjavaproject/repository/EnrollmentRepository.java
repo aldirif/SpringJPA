@@ -11,12 +11,12 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment,Long> {
 
     @Modifying
     @Query(nativeQuery = true, value =
-            "Remove from enrollment where student_id = ?1")
-    void removeStudentFromCourse(Long student_id);
+            "Delete from enrollment where course_id = ?1")
+    void removeStudentFromCourse(Long courseId);
 
     @Modifying
     @Query(nativeQuery = true, value =
-            "Remove from enrollment where student_id =?1 and course_id = ?2")
-    void removeAll(Long student_id, Long course_id);
+            "Delete from enrollment where student_id =?1 and course_id = ?2")
+    void removeAll(Long studentId, Long courseId);
 
 }

@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class EnrollmentResDto {
     private Long id;
     private Grade grade;
-    private StudentResDto studentResDto;
-    private CourseResDto courseResDto;
+    private Long courseId;
+    private Long studentId;
 }

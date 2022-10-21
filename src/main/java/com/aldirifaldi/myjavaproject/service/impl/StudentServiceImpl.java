@@ -3,6 +3,7 @@ package com.aldirifaldi.myjavaproject.service.impl;
 import com.aldirifaldi.myjavaproject.dto.*;
 import com.aldirifaldi.myjavaproject.model.Course;
 import com.aldirifaldi.myjavaproject.model.Enrollment;
+import com.aldirifaldi.myjavaproject.model.Grade;
 import com.aldirifaldi.myjavaproject.model.Student;
 import com.aldirifaldi.myjavaproject.repository.CourseRepository;
 import com.aldirifaldi.myjavaproject.repository.EnrollmentRepository;
@@ -42,14 +43,18 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<StudentDto> findAllByName(String name) {
+        return studentRepository.searchByName(name);
+    }
+
+    @Override
     public StudentResDto getStudentById(Long id) {
         Student student = studentRepository.findById(id).get();
         return StudentResDto.builder()
                 .id(student.getId())
                 .firstMidName(student.getFirstMidName())
                 .lastName(student.getLastName())
-                .enrollmentDate(student.getEnrollmentDate())
-                .build();
+                .enrollmentDate(student.getEnrollmentDate()).build();
     }
 
     @Override
@@ -66,7 +71,36 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student updateStudent(Long id, StudentReqDto studentReqDto) {
+    public NewStudentWithCourseResDto insertNewStudentToCourse(NewStudentReqDto newStudentReqDto) {
+        Student newStudent = Student.builder()
+                .firstMidName(newStudentReqDto.getFirstMidName())
+                .lastName(newStudentReqDto.getLastName()).build();
+        Student student = studentRepository.save(newStudent);
+        Enrollment enrollment = new Enrollment();
+        enrollment.setStudent(
+                Student.builder()
+                        .id(student.getId()).build());
+        enrollment.setCourse(
+                Course.builder()
+                        .id(newStudentReqDto.getCourseId()).build());
+        enrollment.setGrade(newStudentReqDto.getGrade());
+        Enrollment result = enrollmentRepository.save(enrollment);
+        Course course = courseRepository.findById(result.getCourse().getId()).get();
+
+        return NewStudentWithCourseResDto.builder()
+                .id(student.getId())
+                .lastName(student.getLastName())
+                .firstMidName(student.getFirstMidName())
+                .enrollmentDate(student.getEnrollmentDate())
+                .courseResDto(CourseResDto.builder()
+                        .id(result.getCourse().getId())
+                        .title(course.getTitle())
+                        .credits(course.getCredits())
+                        .build()).build();
+    }
+
+    @Override
+    public StudentResDto updateStudent(Long id, StudentReqDto studentReqDto) {
         Optional<Student> updateStudent = studentRepository.findById(id);
         Student result = new Student();
         if (updateStudent.isPresent()){
@@ -75,7 +109,7 @@ public class StudentServiceImpl implements StudentService {
             student.setFirstMidName(studentReqDto.getFirstMidName());
             result = studentRepository.save(student);
         }
-        return Student.builder()
+        return StudentResDto.builder()
                 .id(result.getId())
                 .lastName(result.getLastName())
                 .firstMidName(result.getFirstMidName())

@@ -1,7 +1,6 @@
 package com.aldirifaldi.myjavaproject.controller;
 
 import com.aldirifaldi.myjavaproject.dto.*;
-import com.aldirifaldi.myjavaproject.model.Student;
 import com.aldirifaldi.myjavaproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +19,11 @@ public class StudentController {
         return studentService.getAllStudent();
     }
 
+    @GetMapping("/ByName")
+    public List<StudentDto> getStudentByName(@RequestParam(name = "name")String name) {
+        return studentService.findAllByName(name);
+    }
+
     @GetMapping("/{id}")
     public StudentResDto getById(@PathVariable("id") Long id){
         return studentService.getStudentById(id);
@@ -30,8 +34,14 @@ public class StudentController {
     public StudentResDto insertStudent(@RequestBody StudentReqDto studentReqDto){
         return studentService.insertStudent(studentReqDto);
     }
+
+    @PostMapping("/NewStudentToCourse")
+    public NewStudentWithCourseResDto insertNewStudentToCourse(@RequestBody NewStudentReqDto newStudentReqDto){
+        return studentService.insertNewStudentToCourse(newStudentReqDto);
+    }
+
     @PutMapping("/{id}")
-    public Student put(@PathVariable("id") Long id, @RequestBody StudentReqDto studentReqDto) {
+    public StudentResDto put(@PathVariable("id") Long id, @RequestBody StudentReqDto studentReqDto) {
         return studentService.updateStudent(id, studentReqDto);
     }
 
@@ -41,12 +51,12 @@ public class StudentController {
         return "Delete student id: " + id.toString() + " berhasil";
     }
 
-    @GetMapping("/with/{id}")
+    @GetMapping("/With/course/{id}")
     public StudentWithCourseResDto getStudentWithCourseById(@PathVariable("id") Long id){
         return studentService.getStudentWithCourseById(id);
     }
 
-    @GetMapping("/withcourse")
+    @GetMapping("/WithCourse")
     public List<StudentWithCourseResDto> getAllWithCourse() {
         return studentService.getAllStudentWithCourse();
 

@@ -26,26 +26,23 @@ public class CourseServiceImpl implements CourseService {
             courseResDtoList.add(CourseResDto.builder()
                     .id(course.getId())
                     .title(course.getTitle())
-                    .credits(course.getCredits())
-                    .build());
+                    .credits(course.getCredits()).build());
         }
         return courseResDtoList;
     }
 
     @Override
     public List<CourseResDto> findAllByTitle(String title) {
-        return courseRepository.findAllByTitleContaining(title);
+        return courseRepository.findAllByTitleContainingIgnoreCase(title);
     }
 
     @Override
     public CourseResDto getCourseById(Long id) {
-        CourseResDto courseResDto = new CourseResDto();
-        Course course = courseRepository.findById(id).orElse(new Course());
-        courseResDto.setId(course.getId());
-        courseResDto.setTitle(course.getTitle());
-        courseResDto.setCredits(course.getCredits());
-
-        return  courseResDto;
+        Course course = courseRepository.findById(id).get();
+        return CourseResDto.builder()
+                .id(course.getId())
+                .title(course.getTitle())
+                .credits(course.getCredits()).build();
     }
 
     @Override
@@ -61,7 +58,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course updateCourse(Long id, CourseReqDto courseReqDto) {
+    public CourseResDto updateCourse(Long id, CourseReqDto courseReqDto) {
         Optional<Course> updateCourse = courseRepository.findById(id);
         Course result = new Course();
         if (updateCourse.isPresent()) {
@@ -70,7 +67,7 @@ public class CourseServiceImpl implements CourseService {
             course.setCredits(courseReqDto.getCredits());
             result = courseRepository.save(course);
         }
-        return Course.builder()
+        return CourseResDto.builder()
                 .id(result.getId())
                 .title(result.getTitle())
                 .credits(result.getCredits()).build();

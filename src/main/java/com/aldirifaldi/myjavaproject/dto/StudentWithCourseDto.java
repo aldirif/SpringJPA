@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentWithCourseDto {
-    private Long studentId;
     private Long courseId;
+    private Long studentId;
 }
