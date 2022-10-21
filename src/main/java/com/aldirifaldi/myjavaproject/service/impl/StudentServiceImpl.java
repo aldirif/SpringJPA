@@ -11,6 +11,7 @@ import com.aldirifaldi.myjavaproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -165,9 +166,10 @@ public class StudentServiceImpl implements StudentService {
         return studentWithCourseResDtoList;
     }
 
-    public Page<Student> findStudentWithPagination(int offset, int pageSize){
-        Page<Student> students = studentRepository.findAll(PageRequest.of(offset,pageSize));
-        return students;
+    public List<Student> findStudentWithPagination(int pageNo, int pageSize){
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+        Page<Student> result = studentRepository.findAll(paging);
+        return result.toList();
     }
 
 }

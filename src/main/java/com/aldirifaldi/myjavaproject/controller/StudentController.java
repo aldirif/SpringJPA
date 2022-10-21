@@ -63,9 +63,8 @@ public class StudentController {
         return studentService.getAllStudentWithCourse();
     }
 
-    @GetMapping("/pagination/{offset}/{pageSize}")
-    public StudentRes<Page<Student>> getStudentPagination(@PathVariable int offset, @PathVariable int pageSize){
-        Page<Student> studentWithPagination = studentService.findStudentWithPagination(offset, pageSize);
-        return new StudentRes<>(studentWithPagination.getSize(), studentWithPagination);
+    @GetMapping("/pagination/{pageNo}/{pageSize}")
+    public List<Student> getPagination(@PathVariable int pageNo, @PathVariable int pageSize){
+        return studentService.findStudentWithPagination(pageNo, pageSize);
     }
 }

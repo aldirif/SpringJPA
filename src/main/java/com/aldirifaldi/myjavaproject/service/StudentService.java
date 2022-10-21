@@ -16,5 +16,5 @@ public interface StudentService {
     void deleteStudent(Long id);
     StudentWithCourseResDto getStudentWithCourseById(Long id);
     List<StudentWithCourseResDto> getAllStudentWithCourse();
-    Page<Student> findStudentWithPagination(int offset, int pageSize);
+    List<Student> findStudentWithPagination(int pageNo, int pageSize);
 }
