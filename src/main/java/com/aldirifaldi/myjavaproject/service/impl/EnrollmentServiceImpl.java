@@ -45,7 +45,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
-    public EnrollmentResDto insertEnrollment(EnrollmentReqDto enrollmentReqDto) {
+    public EnrollmentResDto registerStudentToCourse(EnrollmentReqDto enrollmentReqDto) {
         Enrollment newEnrollment = new Enrollment();
         newEnrollment.setCourse(
                 Course.builder().id(enrollmentReqDto.getCourseId()).build());
@@ -66,6 +66,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         Enrollment result = new Enrollment();
         if(updateEnrollment.isPresent()){
             Enrollment enrollment = updateEnrollment.get();
+            enrollment.setStudent(Student.builder()
+                    .id(enrollmentReqDto.getStudentId())
+                    .build());
+            enrollment.setCourse(Course.builder()
+                    .id(enrollmentReqDto.getCourseId())
+                    .build());
             enrollment.setGrade(enrollmentReqDto.getGrade());
             result = enrollmentRepository.save(enrollment);
         }

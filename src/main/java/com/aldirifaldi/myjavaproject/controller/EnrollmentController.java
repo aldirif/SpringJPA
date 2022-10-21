@@ -28,9 +28,8 @@ public class EnrollmentController {
     }
 
     @PostMapping("/Register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public EnrollmentResDto insertEnrollment(@RequestBody EnrollmentReqDto enrollmentReqDto){
-        return enrollmentService.insertEnrollment(enrollmentReqDto);
+    public EnrollmentResDto post(@RequestBody EnrollmentReqDto enrollmentReqDto){
+        return enrollmentService.registerStudentToCourse(enrollmentReqDto);
     }
 
     @PutMapping("/{id}")

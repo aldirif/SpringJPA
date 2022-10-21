@@ -7,7 +7,7 @@ import java.util.List;
 public interface EnrollmentService {
     List<EnrollmentResDto> getAllEnrollment();
     EnrollmentResDto getEnrollmentById(Long id);
-    EnrollmentResDto insertEnrollment(EnrollmentReqDto enrollmentReqDto);
+    EnrollmentResDto registerStudentToCourse(EnrollmentReqDto enrollmentReqDto);
     EnrollmentResDto updateEnrollment(Long id, EnrollmentReqDto enrollmentReqDto);
     void deleteEnrollment(Long id);
     void removeAllStudentFromCourse(Long courseId);
