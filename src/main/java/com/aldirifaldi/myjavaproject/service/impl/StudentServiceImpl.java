@@ -34,37 +34,35 @@ public class StudentServiceImpl implements StudentService {
         for (Student student : students) {
             studentResDtoList.add(StudentResDto.builder()
                     .id(student.getId())
-                    .last_name(student.getLast_name())
-                    .first_mid_name(student.getFirst_mid_name())
-                    .enrollment_date(student.getEnrollment_date()).build());
+                    .lastName(student.getLastName())
+                    .firstMidName(student.getFirstMidName())
+                    .enrollmentDate(student.getEnrollmentDate()).build());
         }
         return studentResDtoList;
     }
 
     @Override
     public StudentResDto getStudentById(Long id) {
-        StudentResDto studentResDto = new StudentResDto();
-        Student student = studentRepository.findById(id).orElse(new Student());
-        studentResDto.setId(student.getId());
-        studentResDto.setLast_name(student.getLast_name());
-        studentResDto.setFirst_mid_name(student.getFirst_mid_name());
-        studentResDto.setEnrollment_date(student.getEnrollment_date());
-
-        return studentResDto;
+        Student student = studentRepository.findById(id).get();
+        return StudentResDto.builder()
+                .id(student.getId())
+                .firstMidName(student.getFirstMidName())
+                .lastName(student.getLastName())
+                .enrollmentDate(student.getEnrollmentDate())
+                .build();
     }
 
     @Override
     public StudentResDto insertStudent(StudentReqDto studentReqDto) {
         Student newStudent = Student.builder()
-                .last_name(studentReqDto.getLast_name())
-                .first_mid_name(studentReqDto.getFirst_mid_name())
-                .enrollment_date(studentReqDto.getEnrollment_date()).build();
+                .lastName(studentReqDto.getLastName())
+                .firstMidName(studentReqDto.getFirstMidName()).build();
         Student result = studentRepository.save(newStudent);
         return StudentResDto.builder()
                 .id(result.getId())
-                .last_name(result.getLast_name())
-                .first_mid_name(result.getFirst_mid_name())
-                .enrollment_date(result.getEnrollment_date()).build();
+                .lastName(result.getLastName())
+                .firstMidName(result.getFirstMidName())
+                .enrollmentDate(result.getEnrollmentDate()).build();
     }
 
     @Override
@@ -73,30 +71,20 @@ public class StudentServiceImpl implements StudentService {
         Student result = new Student();
         if (updateStudent.isPresent()){
             Student student = updateStudent.get();
-            student.setLast_name(studentReqDto.getLast_name());
-            student.setFirst_mid_name(studentReqDto.getFirst_mid_name());
-            student.setEnrollment_date(studentReqDto.getEnrollment_date());
+            student.setLastName(studentReqDto.getLastName());
+            student.setFirstMidName(studentReqDto.getFirstMidName());
             result = studentRepository.save(student);
         }
         return Student.builder()
                 .id(result.getId())
-                .last_name(result.getLast_name())
-                .first_mid_name(result.getFirst_mid_name())
-                .enrollment_date(result.getEnrollment_date()).build();
+                .lastName(result.getLastName())
+                .firstMidName(result.getFirstMidName())
+                .enrollmentDate(result.getEnrollmentDate()).build();
     }
 
     @Override
     public void deleteStudent(Long id) {
         studentRepository.deleteById(id);
-    }
-
-    @Override
-    public void registerStudentToCourse(StudentWithCourseDto studentWithCourseDto) {
-        Student student = studentRepository.findById(studentWithCourseDto.getStudent_id()).get();
-        Course course = courseRepository.findById(studentWithCourseDto.getCourse_id()).get();
-
-        student.getEnrollments().add(new Enrollment());
-        enrollmentRepository.save(new Enrollment());
     }
 
     @Override
@@ -112,9 +100,9 @@ public class StudentServiceImpl implements StudentService {
         }
         return StudentWithCourseResDto.builder()
                 .id(student.getId())
-                .last_name(student.getLast_name())
-                .first_mid_name(student.getFirst_mid_name())
-                .enrollment_date(student.getEnrollment_date())
+                .lastName(student.getLastName())
+                .firstMidName(student.getFirstMidName())
+                .enrollmentDate(student.getEnrollmentDate())
                 .courseResDtoList(courseResDtoList).build();
     }
 
@@ -133,9 +121,9 @@ public class StudentServiceImpl implements StudentService {
             studentWithCourseResDtoList.add(
                     StudentWithCourseResDto.builder()
                             .id(student.getId())
-                            .last_name(student.getLast_name())
-                            .first_mid_name(student.getFirst_mid_name())
-                            .enrollment_date(student.getEnrollment_date())
+                            .lastName(student.getLastName())
+                            .firstMidName(student.getFirstMidName())
+                            .enrollmentDate(student.getEnrollmentDate())
                             .courseResDtoList(courseResDtoList).build()
             );
         }

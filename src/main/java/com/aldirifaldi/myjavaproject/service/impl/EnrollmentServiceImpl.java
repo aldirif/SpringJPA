@@ -26,9 +26,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         for (Enrollment enrollment : enrollments){
             enrollmentDtoList.add(EnrollmentResDto.builder()
                     .id(enrollment.getId())
-                    .grade(enrollment.getGrade())
-                    .course_id(enrollment.getCourse().getId())
-                    .student_id(enrollment.getStudent().getId()).build());
+                    .grade(enrollment.getGrade()).build());
         }
        return enrollmentDtoList;
     }
@@ -39,27 +37,15 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         Enrollment enrollment = enrollmentRepository.findById(id).orElse(new Enrollment());
         enrollmentResDto.setId(enrollment.getId());
         enrollmentResDto.setGrade(enrollment.getGrade());
-        enrollmentResDto.setCourse_id(enrollment.getCourse().getId());
-        enrollmentResDto.setStudent_id(enrollment.getStudent().getId());
 
         return enrollmentResDto;
     }
 
     @Override
     public EnrollmentResDto insertEnrollment(EnrollmentReqDto enrollmentReqDto) {
-        Enrollment newEnrollment = new Enrollment();
-        newEnrollment.setCourse(
-                Course.builder().id(enrollmentReqDto.getCourse_id()).build());
-        newEnrollment.setStudent(
-                Student.builder().id(enrollmentReqDto.getStudent_id()).build());
-        newEnrollment.setGrade(enrollmentReqDto.getGrade());
-        Enrollment result = enrollmentRepository.save(newEnrollment);
-        return EnrollmentResDto.builder()
-                .id(result.getId())
-                .grade(result.getGrade())
-                .course_id(result.getCourse().getId())
-                .student_id(result.getStudent().getId()).build();
+        return null;
     }
+
 
     @Override
     public Enrollment updateEnrollment(Long id, EnrollmentReqDto enrollmentReqDto) {
@@ -79,5 +65,10 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     public void deleteEnrollment(Long id) {
         enrollmentRepository.deleteById(id);
 
+    }
+
+    @Override
+    public void removeStudentFromCourse(Long student_id) {
+        enrollmentRepository.removeStudentFromCourse(student_id);
     }
 }

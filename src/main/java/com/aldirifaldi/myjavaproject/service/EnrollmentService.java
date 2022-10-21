@@ -12,4 +12,5 @@ public interface EnrollmentService {
     EnrollmentResDto insertEnrollment(EnrollmentReqDto enrollmentReqDto);
     Enrollment updateEnrollment(Long id, EnrollmentReqDto enrollmentReqDto);
     void deleteEnrollment(Long id);
+    void removeStudentFromCourse(Long student_id);
 }

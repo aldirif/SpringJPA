@@ -42,4 +42,10 @@ public class EnrollmentController {
         enrollmentService.deleteEnrollment(id);
         return "Delete enrollment id: "+id.toString()+" berhasil";
     }
+
+    @DeleteMapping("/student/{id}")
+    public String removeStudentFromCourse(@PathVariable("id")Long id) {
+        enrollmentService.removeStudentFromCourse(id);
+        return "Delete id: " + id.toString() + "berhasil";
+    }
 }

@@ -49,11 +49,6 @@ public class StudentController {
     @GetMapping("/withcourse")
     public List<StudentWithCourseResDto> getAllWithCourse() {
         return studentService.getAllStudentWithCourse();
-    }
-    @PostMapping("/course")
-    public String registerStudentToCourse(@RequestBody StudentWithCourseDto studentWithCourseDto) {
-        studentService.registerStudentToCourse(studentWithCourseDto);
-        return "Berhasil menambahkan student " + studentWithCourseDto.getStudent_id().toString() +
-                " ke course " + studentWithCourseDto.getCourse_id().toString();
+
     }
 }

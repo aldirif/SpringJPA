@@ -89,9 +89,9 @@ public class CourseServiceImpl implements CourseService {
         for (Enrollment enrollment : enrollmentList){
             studentResDtoList.add(StudentResDto.builder()
                     .id(enrollment.getStudent().getId())
-                    .last_name(enrollment.getStudent().getLast_name())
-                    .first_mid_name(enrollment.getStudent().getFirst_mid_name())
-                    .enrollment_date(enrollment.getStudent().getEnrollment_date()).build());
+                    .lastName(enrollment.getStudent().getLastName())
+                    .firstMidName(enrollment.getStudent().getFirstMidName())
+                    .enrollmentDate(enrollment.getStudent().getEnrollmentDate()).build());
         }
         return CourseWithStudentResDto.builder()
                 .id(course.getId())

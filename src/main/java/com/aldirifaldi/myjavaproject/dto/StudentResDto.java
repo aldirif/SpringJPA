@@ -1,11 +1,12 @@
 package com.aldirifaldi.myjavaproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Builder
@@ -13,8 +14,8 @@ import java.sql.Date;
 @NoArgsConstructor
 public class StudentResDto {
     private Long id;
-    private String last_name;
-    private String first_mid_name;
-    private Date enrollment_date;
-
+    private String lastName;
+    private String firstMidName;
+    @JsonFormat(timezone = "GMT+07:00") // Agar ditampilkan +7, bukan UTC
+    private Date enrollmentDate;
 }
