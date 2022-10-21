@@ -3,13 +3,14 @@ package com.aldirifaldi.myjavaproject.service.impl;
 import com.aldirifaldi.myjavaproject.dto.*;
 import com.aldirifaldi.myjavaproject.model.Course;
 import com.aldirifaldi.myjavaproject.model.Enrollment;
-import com.aldirifaldi.myjavaproject.model.Grade;
 import com.aldirifaldi.myjavaproject.model.Student;
 import com.aldirifaldi.myjavaproject.repository.CourseRepository;
 import com.aldirifaldi.myjavaproject.repository.EnrollmentRepository;
 import com.aldirifaldi.myjavaproject.repository.StudentRepository;
 import com.aldirifaldi.myjavaproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -162,6 +163,11 @@ public class StudentServiceImpl implements StudentService {
             );
         }
         return studentWithCourseResDtoList;
+    }
+
+    public Page<Student> findStudentWithPagination(int offset, int pageSize){
+        Page<Student> students = studentRepository.findAll(PageRequest.of(offset,pageSize));
+        return students;
     }
 
 }

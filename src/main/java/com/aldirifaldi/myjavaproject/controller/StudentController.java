@@ -1,8 +1,10 @@
 package com.aldirifaldi.myjavaproject.controller;
 
 import com.aldirifaldi.myjavaproject.dto.*;
+import com.aldirifaldi.myjavaproject.model.Student;
 import com.aldirifaldi.myjavaproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,6 +61,11 @@ public class StudentController {
     @GetMapping("/WithCourse")
     public List<StudentWithCourseResDto> getAllWithCourse() {
         return studentService.getAllStudentWithCourse();
+    }
 
+    @GetMapping("/pagination/{offset}/{pageSize}")
+    public StudentRes<Page<Student>> getStudentPagination(@PathVariable int offset, @PathVariable int pageSize){
+        Page<Student> studentWithPagination = studentService.findStudentWithPagination(offset, pageSize);
+        return new StudentRes<>(studentWithPagination.getSize(), studentWithPagination);
     }
 }

@@ -1,8 +1,6 @@
 package com.aldirifaldi.myjavaproject.controller;
 
-import com.aldirifaldi.myjavaproject.dto.CourseReqDto;
-import com.aldirifaldi.myjavaproject.dto.CourseResDto;
-import com.aldirifaldi.myjavaproject.dto.CourseWithStudentResDto;
+import com.aldirifaldi.myjavaproject.dto.*;
 import com.aldirifaldi.myjavaproject.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

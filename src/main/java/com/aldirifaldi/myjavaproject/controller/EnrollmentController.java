@@ -1,11 +1,8 @@
 package com.aldirifaldi.myjavaproject.controller;
 
-import com.aldirifaldi.myjavaproject.dto.EnrollmentReqDto;
-import com.aldirifaldi.myjavaproject.dto.EnrollmentResDto;
-import com.aldirifaldi.myjavaproject.dto.StudentWithCourseDto;
+import com.aldirifaldi.myjavaproject.dto.*;
 import com.aldirifaldi.myjavaproject.service.EnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
