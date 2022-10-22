@@ -64,7 +64,9 @@ public class StudentController {
     }
 
     @GetMapping("/pagination/{pageNo}/{pageSize}")
-    public List<Student> getPagination(@PathVariable int pageNo, @PathVariable int pageSize){
-        return studentService.findStudentWithPagination(pageNo, pageSize);
+    public List<StudentResDto> getPagination(@PathVariable int pageNo, @PathVariable int pageSize){
+        Page<StudentResDto> studentResDto = studentService.findStudentWithPagination(pageNo, pageSize);
+        List<StudentResDto> studentResDtoList = studentResDto.getContent();
+        return  studentResDtoList;
     }
 }

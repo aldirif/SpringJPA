@@ -10,13 +10,16 @@ import com.aldirifaldi.myjavaproject.repository.StudentRepository;
 import com.aldirifaldi.myjavaproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -166,10 +169,19 @@ public class StudentServiceImpl implements StudentService {
         return studentWithCourseResDtoList;
     }
 
-    public List<Student> findStudentWithPagination(int pageNo, int pageSize){
-        Pageable paging = PageRequest.of(pageNo, pageSize);
-        Page<Student> result = studentRepository.findAll(paging);
-        return result.toList();
+    public Page<StudentResDto> findStudentWithPagination(int pageNo, int pageSize){
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Student> studentPage = studentRepository.findAll(pageable);
+        int totalElements = (int) studentPage.getTotalElements();
+        return  new PageImpl<StudentResDto>(studentPage.getContent()
+                .stream()
+                .map(student -> new StudentResDto(
+                        student.getId(),
+                        student.getLastName(),
+                        student.getFirstMidName(),
+                        student.getEnrollmentDate()))
+                .collect(Collectors.toList()), pageable, totalElements);
+
     }
 
 }
