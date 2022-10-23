@@ -1,14 +1,12 @@
 package com.aldirifaldi.myjavaproject.service;
 
 import com.aldirifaldi.myjavaproject.dto.*;
-import com.aldirifaldi.myjavaproject.model.Student;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface StudentService {
     List<StudentResDto> getAllStudent();
-    List<StudentDto> findAllByName(String name);
+    List<StudentResDto> findAllByName(String lastName, String firstMidName);
     StudentResDto getStudentById(Long id);
     StudentResDto insertStudent(StudentReqDto studentReqDto);
     NewStudentWithCourseResDto insertNewStudentToCourse(NewStudentReqDto newStudentReqDto);
@@ -16,5 +14,5 @@ public interface StudentService {
     void deleteStudent(Long id);
     StudentWithCourseResDto getStudentWithCourseById(Long id);
     List<StudentWithCourseResDto> getAllStudentWithCourse();
-    Page<StudentResDto> findStudentWithPagination(int pageNo, int pageSize);
+    List<StudentResDto> findStudentWithPagination(int pageNo, int pageSize);
 }

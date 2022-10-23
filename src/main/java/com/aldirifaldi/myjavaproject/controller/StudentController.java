@@ -1,10 +1,8 @@
 package com.aldirifaldi.myjavaproject.controller;
 
 import com.aldirifaldi.myjavaproject.dto.*;
-import com.aldirifaldi.myjavaproject.model.Student;
 import com.aldirifaldi.myjavaproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +20,8 @@ public class StudentController {
     }
 
     @GetMapping("/ByName")
-    public List<StudentDto> getStudentByName(@RequestParam(name = "name")String name) {
-        return studentService.findAllByName(name);
+    public List<StudentResDto> getStudentByName(@RequestParam String lastName, @RequestParam String firstMidName ) {
+        return studentService.findAllByName(lastName, firstMidName);
     }
 
     @GetMapping("/{id}")
@@ -65,8 +63,6 @@ public class StudentController {
 
     @GetMapping("/pagination/{pageNo}/{pageSize}")
     public List<StudentResDto> getPagination(@PathVariable int pageNo, @PathVariable int pageSize){
-        Page<StudentResDto> studentResDto = studentService.findStudentWithPagination(pageNo, pageSize);
-        List<StudentResDto> studentResDtoList = studentResDto.getContent();
-        return  studentResDtoList;
+        return studentService.findStudentWithPagination(pageNo, pageSize);
     }
 }

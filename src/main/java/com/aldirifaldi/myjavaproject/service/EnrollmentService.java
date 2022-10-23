@@ -1,8 +1,6 @@
 package com.aldirifaldi.myjavaproject.service;
 
 import com.aldirifaldi.myjavaproject.dto.*;
-import com.aldirifaldi.myjavaproject.model.Enrollment;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 

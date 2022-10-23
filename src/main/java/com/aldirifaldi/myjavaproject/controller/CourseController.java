@@ -21,8 +21,8 @@ public class CourseController {
     }
 
     @GetMapping("/ByTitle")
-    List<CourseResDto> getCourseByTitle(@RequestParam(name = "name")String name){
-        return courseService.findAllByTitle(name);
+    List<CourseResDto> getCourseByTitle(@RequestParam String title){
+        return courseService.findAllByTitle(title);
     }
 
     @GetMapping("/{id}")

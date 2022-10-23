@@ -33,7 +33,15 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<CourseResDto> findAllByTitle(String title) {
-        return courseRepository.findAllByTitleContainingIgnoreCase(title);
+        List<Course> courses = courseRepository.findAllByTitleContainingIgnoreCase(title);
+        List<CourseResDto> courseResDtoList = new ArrayList<>();
+        for(Course course : courses){
+            courseResDtoList.add(CourseResDto.builder()
+                    .id(course.getId())
+                    .title(course.getTitle())
+                    .credits(course.getCredits()).build());
+        }
+        return courseResDtoList;
     }
 
     @Override

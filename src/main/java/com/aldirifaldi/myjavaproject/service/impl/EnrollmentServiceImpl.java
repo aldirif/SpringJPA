@@ -48,9 +48,11 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     public EnrollmentResDto registerStudentToCourse(EnrollmentReqDto enrollmentReqDto) {
         Enrollment newEnrollment = new Enrollment();
         newEnrollment.setCourse(
-                Course.builder().id(enrollmentReqDto.getCourseId()).build());
+                Course.builder()
+                        .id(enrollmentReqDto.getCourseId()).build());
         newEnrollment.setStudent(
-                Student.builder().id(enrollmentReqDto.getStudentId()).build());
+                Student.builder()
+                        .id(enrollmentReqDto.getStudentId()).build());
         newEnrollment.setGrade(enrollmentReqDto.getGrade());
         Enrollment result = enrollmentRepository.save(newEnrollment);
         return  EnrollmentResDto.builder()
@@ -89,13 +91,13 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
     @Override
     public void removeStudentFromCourse(StudentWithCourseDto studentWithCourseDto) {
-        enrollmentRepository.removeAll(
+        enrollmentRepository.removeStudentFromCourse(
                 studentWithCourseDto.getStudentId(),
                 studentWithCourseDto.getCourseId());
     }
 
     @Override
     public void removeAllStudentFromCourse(Long courseId) {
-        enrollmentRepository.removeStudentFromCourse(courseId);
+        enrollmentRepository.removeAll(courseId);
     }
 }
