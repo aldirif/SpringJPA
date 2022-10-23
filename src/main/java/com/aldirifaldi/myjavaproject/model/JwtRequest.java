@@ -1,4 +1,4 @@
-package com.aldirifaldi.myjavaproject.dto;
+package com.aldirifaldi.myjavaproject.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

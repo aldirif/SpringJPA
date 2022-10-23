@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.aldirifaldi.myjavaproject.config.JwtTokenUtil;
-import com.aldirifaldi.myjavaproject.dto.JwtRequest;
-import com.aldirifaldi.myjavaproject.dto.JwtResponse;
+import com.aldirifaldi.myjavaproject.model.JwtRequest;
+import com.aldirifaldi.myjavaproject.model.JwtResponse;
 import com.aldirifaldi.myjavaproject.dto.UserDto;
 import com.aldirifaldi.myjavaproject.service.impl.JwtUserDetailsService;
 
