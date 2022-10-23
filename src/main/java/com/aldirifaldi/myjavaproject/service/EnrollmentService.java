@@ -9,6 +9,7 @@ public interface EnrollmentService {
     EnrollmentResDto getEnrollmentById(Long id);
     EnrollmentResDto registerStudentToCourse(EnrollmentReqDto enrollmentReqDto);
     EnrollmentResDto updateEnrollment(Long id, EnrollmentReqDto enrollmentReqDto);
+    EnrollmentResDto registerGrade(Long id, GradeReqDto gradeReqDto);
     void deleteEnrollment(Long id);
     void removeAllStudentFromCourse(Long courseId);
     void removeStudentFromCourse(StudentWithCourseDto studentWithCourseDto);

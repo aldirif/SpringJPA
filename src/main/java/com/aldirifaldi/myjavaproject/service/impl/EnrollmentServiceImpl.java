@@ -85,6 +85,22 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
+    public EnrollmentResDto registerGrade(Long id, GradeReqDto gradeReqDto) {
+        Optional<Enrollment> registerGrade = enrollmentRepository.findById(id);
+        Enrollment result = new Enrollment();
+        if (registerGrade.isPresent()){
+            Enrollment enrollment = registerGrade.get();
+            enrollment.setGrade(gradeReqDto.getGrade());
+            result = enrollmentRepository.save(enrollment);
+        }
+        return  EnrollmentResDto.builder()
+                .id(result.getId())
+                .grade(result.getGrade())
+                .courseId(result.getCourse().getId())
+                .studentId(result.getStudent().getId()).build();
+    }
+
+    @Override
     public void deleteEnrollment(Long id) {
         enrollmentRepository.deleteById(id);
     }

@@ -93,7 +93,6 @@ public class StudentServiceImpl implements StudentService {
         enrollment.setCourse(
                 Course.builder()
                         .id(newStudentReqDto.getCourseId()).build());
-        enrollment.setGrade(newStudentReqDto.getGrade());
         Enrollment result = enrollmentRepository.save(enrollment);
         Course course = courseRepository.findById(result.getCourse().getId()).get();
 

@@ -34,6 +34,11 @@ public class EnrollmentController {
         return enrollmentService.updateEnrollment(id, enrollmentReqDto);
     }
 
+    @PutMapping("/Grade/{id}")
+    public EnrollmentResDto put(@PathVariable("id") Long id, @RequestBody GradeReqDto gradeReqDto){
+        return enrollmentService.registerGrade(id, gradeReqDto);
+    }
+
     @DeleteMapping("/{id}")
     public String deleteEnrollment(@PathVariable("id") Long id){
         enrollmentService.deleteEnrollment(id);

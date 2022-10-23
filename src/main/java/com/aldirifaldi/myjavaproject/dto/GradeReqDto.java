@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewStudentReqDto {
-    private String lastName;
-    private String firstMidName;
-    private Long courseId;
+public class GradeReqDto {
+    private Grade grade;
 }
